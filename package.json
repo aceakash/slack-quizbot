@@ -1,0 +1,17 @@
+{
+  "name": "slack-quizbot",
+  "version": "1.0.0",
+  "description": "A quiz bot for Slack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^2.9.30",
+    "convict": "^1.0.1",
+    "lodash": "^3.9.3",
+    "slack-client": "^1.4.1",
+    "sqlite3": "^3.1.1"
+  }
+}
