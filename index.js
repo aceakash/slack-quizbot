@@ -73,7 +73,7 @@ quizRepo.getQuestionCount()
         var player = findPlayer(user.id, players);
 
         if (state === states.waitingForAnswer) {
-          if (text.toLowerCase().trim() == currentQuizItem.a.toLowerCase().trim()) {
+          if (prune(text) == prune(currentQuizItem.a)) {
             clearTimeout(questionTimeOutId);
             state = states.idle;
             var timeDelta = (new Date() - timeQuestionAsked) / 1000;
@@ -81,9 +81,8 @@ quizRepo.getQuestionCount()
             channel.send(user.name + " answered correctly in " + timeDelta + " seconds");
           }
         } else if (prune(text) === 'scores') {
-          var scoreboard = players.map(function(p){ return p.name + ":" + p.points; }).join("\n")
-          console.log(scoreboard);
-          channel.send("CURRENT SCORES:\n" + scoreboard);
+          var scoreboard = players.map(function(p){ return p.name + ": " + p.points; }).join("\n")
+          channel.send(":trophy: *Current Scores* :trophy: \n" + scoreboard);
         } else if (prune(text) === 'q') {
           quizRepo.getQuestionById(_.random(questionCount), function (err, doc) {
             currentQuizItem = doc;
