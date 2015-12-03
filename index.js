@@ -8,6 +8,22 @@ var formatAsBlanks = require('./format-as-blanks');
 
 var questionTimeoutSec = 30; // todo: parameterise
 
+function Player (id, name) {
+  this.id = id;
+  this.name = name;
+  this.points = 0;
+}
+
+function findPlayer (id, players) {
+  return players.filter(function(p) {
+    return p.id === id; 
+  })[0]; 
+}
+
+function prune (text) {
+  return text.toLowerCase().trim();
+}
+
 
 quizRepo.getQuestionCount()
   .then(function (doc) {
@@ -31,7 +47,7 @@ quizRepo.getQuestionCount()
     var currentQuizItem = null;
     var timeQuestionAsked = null;
     var questionTimeOutId = null;
-
+    var players = [];
 
     slack.on('message', function (message) {
       var channel = slack.getChannelGroupOrDMByID(message.channel);
@@ -39,19 +55,36 @@ quizRepo.getQuestionCount()
         return;
       }
       var user = slack.getUserByID(message.user);
+
+      var playersNames = players.map(function(p){ return p.name });
+
+      if (user && user.name) {
+        if (playersNames.indexOf(user.name) === -1) {
+          var player = new Player(user.id, user.name);
+          players.push(player);
+        }
+      }
+
       var type = message.type;
       var text = message.text;
 
       if (type === 'message' && channel && text) {
+
+        var player = findPlayer(user.id, players);
+
         if (state === states.waitingForAnswer) {
           if (text.toLowerCase().trim() == currentQuizItem.a.toLowerCase().trim()) {
             clearTimeout(questionTimeOutId);
             state = states.idle;
             var timeDelta = (new Date() - timeQuestionAsked) / 1000;
+            player.points++;
             channel.send(user.name + " answered correctly in " + timeDelta + " seconds");
           }
-        }
-        else if (text.toLowerCase().trim() === 'q') {
+        } else if (prune(text) === 'scores') {
+          var scoreboard = players.map(function(p){ return p.name + ":" + p.points; }).join("\n")
+          console.log(scoreboard);
+          channel.send("CURRENT SCORES:\n" + scoreboard);
+        } else if (prune(text) === 'q') {
           quizRepo.getQuestionById(_.random(questionCount), function (err, doc) {
             currentQuizItem = doc;
             channel.send(util.format('[%s] %s ( %s )', doc.id, doc.q, formatAsBlanks(doc.a)));
