@@ -14,6 +14,12 @@ function Player (id, name) {
   this.points = 0;
 }
 
+function findPlayer (id, players) {
+  return players.filter(function(p) {
+    return p.id === id; 
+  })[0]; 
+}
+
 function prune (text) {
   return text.toLowerCase().trim();
 }
@@ -43,7 +49,6 @@ quizRepo.getQuestionCount()
     var questionTimeOutId = null;
     var players = [];
 
-
     slack.on('message', function (message) {
       var channel = slack.getChannelGroupOrDMByID(message.channel);
       if (channel.name !== config.get('slack.channel')) {
@@ -51,17 +56,22 @@ quizRepo.getQuestionCount()
       }
       var user = slack.getUserByID(message.user);
 
-      var playersIDs = players.map(function(p){ return p.id });
-      var player = new Player(user, user.name);
+      var playersNames = players.map(function(p){ return p.name });
 
-      if (playersIDs.indexOf(user) === -1) {
-        players.push(player);
+      if (user && user.name) {
+        if (playersNames.indexOf(user.name) === -1) {
+          var player = new Player(user.id, user.name);
+          players.push(player);
+        }
       }
 
       var type = message.type;
       var text = message.text;
 
       if (type === 'message' && channel && text) {
+
+        var player = findPlayer(user.id, players);
+
         if (state === states.waitingForAnswer) {
           if (text.toLowerCase().trim() == currentQuizItem.a.toLowerCase().trim()) {
             clearTimeout(questionTimeOutId);
@@ -71,7 +81,8 @@ quizRepo.getQuestionCount()
             channel.send(user.name + " answered correctly in " + timeDelta + " seconds");
           }
         } else if (prune(text) === 'scores') {
-          var scoreboard = players.map(function(p){ return player.name + ":" + player.points + "\n"; })
+          var scoreboard = players.map(function(p){ return p.name + ":" + p.points; }).join("\n")
+          console.log(scoreboard);
           channel.send("CURRENT SCORES:\n" + scoreboard);
         } else if (prune(text) === 'q') {
           quizRepo.getQuestionById(_.random(questionCount), function (err, doc) {
