@@ -8,6 +8,16 @@ var formatAsBlanks = require('./format-as-blanks');
 
 var questionTimeoutSec = 30; // todo: parameterise
 
+function Player (id, name) {
+  this.id = id;
+  this.name = name;
+  this.points = 0;
+}
+
+function prune (text) {
+  return text.toLowerCase().trim();
+}
+
 
 quizRepo.getQuestionCount()
   .then(function (doc) {
@@ -31,6 +41,7 @@ quizRepo.getQuestionCount()
     var currentQuizItem = null;
     var timeQuestionAsked = null;
     var questionTimeOutId = null;
+    var players = [];
 
 
     slack.on('message', function (message) {
@@ -39,6 +50,14 @@ quizRepo.getQuestionCount()
         return;
       }
       var user = slack.getUserByID(message.user);
+
+      var playersIDs = players.map(function(p){ return p.id });
+      var player = new Player(user, user.name);
+
+      if (playersIDs.indexOf(user) === -1) {
+        players.push(player);
+      }
+
       var type = message.type;
       var text = message.text;
 
@@ -48,10 +67,13 @@ quizRepo.getQuestionCount()
             clearTimeout(questionTimeOutId);
             state = states.idle;
             var timeDelta = (new Date() - timeQuestionAsked) / 1000;
+            player.points++;
             channel.send(user.name + " answered correctly in " + timeDelta + " seconds");
           }
-        }
-        else if (text.toLowerCase().trim() === 'q') {
+        } else if (prune(text) === 'scores') {
+          var scoreboard = players.map(function(p){ return player.name + ":" + player.points + "\n"; })
+          channel.send("CURRENT SCORES:\n" + scoreboard);
+        } else if (prune(text) === 'q') {
           quizRepo.getQuestionById(_.random(questionCount), function (err, doc) {
             currentQuizItem = doc;
             channel.send(util.format('[%s] %s ( %s )', doc.id, doc.q, formatAsBlanks(doc.a)));
