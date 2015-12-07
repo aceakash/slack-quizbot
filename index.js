@@ -24,6 +24,10 @@ function prune (text) {
   return text.toLowerCase().trim();
 }
 
+function isNotBot (name) {
+  return name.indexOf('.bot') === -1;
+}
+
 
 quizRepo.getQuestionCount()
   .then(function (doc) {
@@ -59,7 +63,7 @@ quizRepo.getQuestionCount()
       var playersNames = players.map(function(p){ return p.name });
 
       if (user && user.name) {
-        if (playersNames.indexOf(user.name) === -1) {
+        if (playersNames.indexOf(user.name) === -1 && isNotBot(user.name)) {
           var player = new Player(user.id, user.name);
           players.push(player);
         }
@@ -78,6 +82,7 @@ quizRepo.getQuestionCount()
             state = states.idle;
             var timeDelta = (new Date() - timeQuestionAsked) / 1000;
             player.points++;
+            scoreboard = _.sortBy(scoreboard, 'points').reverse(); // sort hi-low
             channel.send(user.name + " answered correctly in " + timeDelta + " seconds");
           }
         } else if (prune(text) === 'scores') {
