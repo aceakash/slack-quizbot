@@ -24,6 +24,10 @@ function prune (text) {
   return text.toLowerCase().trim();
 }
 
+function isNotBot (name) {
+  return name.indexOf('.bot') !== 0;
+}
+
 
 quizRepo.getQuestionCount()
   .then(function (doc) {
@@ -59,7 +63,7 @@ quizRepo.getQuestionCount()
       var playersNames = players.map(function(p){ return p.name });
 
       if (user && user.name) {
-        if (playersNames.indexOf(user.name) === -1) {
+        if (playersNames.indexOf(user.name) === -1 && isNotBot(user.name)) {
           var player = new Player(user.id, user.name);
           players.push(player);
         }
