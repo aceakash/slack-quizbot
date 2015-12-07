@@ -25,7 +25,7 @@ function prune (text) {
 }
 
 function isNotBot (name) {
-  return name.indexOf('.bot') !== 0;
+  return name.indexOf('.bot') === -1;
 }
 
 
@@ -82,6 +82,7 @@ quizRepo.getQuestionCount()
             state = states.idle;
             var timeDelta = (new Date() - timeQuestionAsked) / 1000;
             player.points++;
+            scoreboard = _.sortBy(scoreboard, 'points').reverse(); // sort hi-low
             channel.send(user.name + " answered correctly in " + timeDelta + " seconds");
           }
         } else if (prune(text) === 'scores') {
