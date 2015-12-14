@@ -72,7 +72,7 @@ quizRepo.getQuestionCount()
       var type = message.type;
       var text = message.text;
 
-      if (type === 'message' && channel && text) {
+      if (type === 'message' && channel && text && user) {
 
         var player = findPlayer(user.id, players);
 
@@ -86,7 +86,7 @@ quizRepo.getQuestionCount()
             channel.send(user.name + " answered correctly in " + timeDelta + " seconds");
           }
         } else if (prune(text) === 'scores') {
-          var scoreboard = players.map(function(p){ return p.name + ": " + p.points; }).join("\n")
+          var scoreboard = players.map(function(p){ return p.name.split('').join('_') + ": " + p.points; }).join("\n")
           channel.send(":trophy: *Current Scores* :trophy: \n" + scoreboard);
         } else if (prune(text) === 'q') {
           quizRepo.getQuestionById(_.random(questionCount), function (err, doc) {
