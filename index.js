@@ -89,6 +89,7 @@ quizRepo.getQuestionCount()
           var scoreboard = players.map(function(p){ return p.name.split('').join('_') + ": " + p.points; }).join("\n")
           channel.send(":trophy: *Current Scores* :trophy: \n" + scoreboard);
         } else if (prune(text) === 'q') {
+          state = states.waitingForAnswer;
           quizRepo.getQuestionById(_.random(questionCount), function (err, doc) {
             currentQuizItem = doc;
             channel.send(util.format('[%s] %s ( %s )', doc.id, doc.q, formatAsBlanks(doc.a)));
@@ -97,7 +98,6 @@ quizRepo.getQuestionCount()
               state = states.idle;
               channel.send('Time up! The answer was: ' + currentQuizItem.a);
             }, questionTimeoutSec * 1000);
-            state = states.waitingForAnswer;
             console.log("Sent question:", currentQuizItem);
           });
         }
