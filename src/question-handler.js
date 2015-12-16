@@ -1,9 +1,18 @@
 'use strict';
 
 const util = require('util');
+const EventEmitter = require('events').EventEmitter;
+
 const quizRepo = require('./quiz-repo');
 
-const questionTimeoutSec = 10; // todo: parameterise
+const questionTimeoutSec = 30; // todo: parameterise
+
+const questionHandler = {
+  start
+};
+
+makeEventEmitter(questionHandler);
+
 
 const states = {
   idle: 'idle',
@@ -42,6 +51,10 @@ function start(slackChannel) {
         current.state = states.idle;
         var timeDelta = (new Date() - current.timeQuestionAsked) / 1000;
         slackChannel.send(msgDetails.userName + " answered correctly in " + timeDelta + " seconds");
+        questionHandler.emit('correctAnswer', {
+          userName: msgDetails.userName,
+          answerTime: timeDelta
+        });
       }
     }
   });
@@ -55,7 +68,8 @@ function prune (text) {
   return text.toLowerCase().trim();
 }
 
+function makeEventEmitter(obj) {
+  obj.__proto__ = Object.create(EventEmitter.prototype);
+}
 
-module.exports = {
-  start
-};
+module.exports = questionHandler;
