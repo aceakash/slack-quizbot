@@ -29,6 +29,7 @@ function makeSlackChannel() {
         rawSlackChannel = channel;
         slackChannel.emit('msg', {
           text: messageDetails.text,
+          prunedText: messageDetails.text.trim().toLowerCase(),
           userName: user.name,
           time: new Date()
         });

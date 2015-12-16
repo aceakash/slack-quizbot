@@ -6,7 +6,7 @@ var config = require('./config');
 var quizRepo = require('./quiz-repo');
 var formatAsBlanks = require('./format-as-blanks');
 
-var questionTimeoutSec = 30; // todo: parameterise
+var questionTimeoutSec = 10; // todo: parameterise
 
 function Player (id, name) {
   this.id = id;
