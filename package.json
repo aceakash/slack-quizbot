@@ -4,7 +4,7 @@
   "description": "A quiz bot for Slack",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "license": "ISC",
   "dependencies": {
