@@ -26,7 +26,7 @@ function getFormattedScores() {
   const players = getPlayersSortedByScore();
   let result = ":trophy: *Current Scores* :trophy: \n";
   result += players
-    .map(player => `${getFormattedName(player.userName)} : ${player.score} (avg: ${getAverageAnswerTimeForPlayer(player)} ms)`)
+    .map(player => `${getFormattedName(player.userName)} : ${player.score} (avg: ${getAverageAnswerTimeForPlayer(player)} s)`)
     .join('\n');
   return result;
 }
