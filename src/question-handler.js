@@ -9,7 +9,7 @@ const states = {
   idle: 'idle',
   waitingForAnswer: 'waitingForAnswer'
 };
-let currentSituation = {
+let current = {
   state: states.idle,
   timeQuestionAsked: null,
   questionTimeOutId: null,
@@ -18,25 +18,31 @@ let currentSituation = {
 
 function start(slackChannel) {
   slackChannel.on('msg', msgDetails => {
-    if (currentSituation.state === states.idle) {
+    if (current.state === states.idle) {
       if (msgDetails.prunedText !== 'q') {
         return;
       }
-      currentSituation.state = states.waitingForAnswer;
+      current.state = states.waitingForAnswer;
       quizRepo.getRandomQuestion()
         .then(doc => {
-          currentSituation.quizItem = doc;
-          currentSituation.timeQuestionAsked = new Date();
-          currentSituation.questionTimeOutId = setTimeout(function () {
-            currentSituation.state = states.idle;
-            slackChannel.send('Time up! The answer was: ' + currentSituation.quizItem.a);
+          current.quizItem = doc;
+          console.log(doc);
+          current.timeQuestionAsked = new Date();
+          current.questionTimeOutId = setTimeout(function () {
+            current.state = states.idle;
+            slackChannel.send('Time up! The answer was: ' + current.quizItem.a);
           }, questionTimeoutSec * 1000);
           slackChannel.send(util.format('[%s] %s ( %s )',
             doc.id, doc.q, formatAsBlanks(doc.a)));
         });
     }
-    else if (currentSituation.state === states.waitingForAnswer) {
-
+    else if (current.state === states.waitingForAnswer) {
+      if (msgDetails.prunedText == prune(current.quizItem.a)) {
+        clearTimeout(current.questionTimeOutId);
+        current.state = states.idle;
+        var timeDelta = (new Date() - current.timeQuestionAsked) / 1000;
+        slackChannel.send(msgDetails.userName + " answered correctly in " + timeDelta + " seconds");
+      }
     }
   });
 }
@@ -44,6 +50,11 @@ function start(slackChannel) {
 function formatAsBlanks(string) {
   return string.replace(/\w/g, 'x');
 }
+
+function prune (text) {
+  return text.toLowerCase().trim();
+}
+
 
 module.exports = {
   start
