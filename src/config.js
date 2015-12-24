@@ -14,6 +14,12 @@ var conf = convict({
       default: '',
       env: "SLACK_CHANNEL"
     }
+  },
+  questionTimeoutSec: {
+    doc: "How long to listen for answer? in seconds",
+    format: "int",
+    default: 30,
+    env: "QUESTION_TIMEOUT_SEC"
   }
 });
 

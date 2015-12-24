@@ -4,8 +4,10 @@ const util = require('util');
 const EventEmitter = require('events').EventEmitter;
 
 const quizRepo = require('./quiz-repo');
+const config = require('./config');
 
-const questionTimeoutSec = 30; // todo: parameterise
+const questionTimeoutSec = config.get('questionTimeoutSec');
+console.log('question timeout set to %d seconds', questionTimeoutSec);
 
 const questionHandler = {
   start
