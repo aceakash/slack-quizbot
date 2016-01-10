@@ -55,7 +55,8 @@ function start(slackChannel) {
         slackChannel.send(msgDetails.userName + " answered correctly in " + timeDelta + " seconds");
         questionHandler.emit('correctAnswer', {
           userName: msgDetails.userName,
-          answerTime: timeDelta
+          answerTime: timeDelta,
+          questionId: current.quizItem.id
         });
       }
     }

@@ -3,22 +3,29 @@
 const _ = require('lodash');
 
 const questionHandler = require('./question-handler');
-
+const scoreRepo = require('./score-repo');
 const players = [];
 
 function start(slackChannel) {
-  slackChannel.on('msg', (msgDetails) => {
-    if (msgDetails.prunedText !== 'scores') {
-      return;
-    }
-    const scores = getFormattedScores();
-    slackChannel.send(scores);
-  });
+  scoreRepo.init().then(() => {
+    slackChannel.on('msg', (msgDetails) => {
+      if (msgDetails.prunedText !== 'scores') {
+        return;
+      }
+      const scores = getFormattedScores();
+      slackChannel.send(scores);
+    });
 
-  questionHandler.on('correctAnswer', details => {
-    console.log('received event correctAnswer', details);
-    updatePlayer(players, details.userName, details.answerTime);
-    console.log(players);
+    questionHandler.on('correctAnswer', details => {
+      console.log('received event correctAnswer', details);
+      updatePlayer(players, details.userName, details.answerTime);
+      console.log(players);
+      details.ts = new Date().toISOString();
+      scoreRepo.writeScore(details)
+        .catch((err) => {
+            console.error('Could not update score', err);
+        })
+    });
   });
 }
 
