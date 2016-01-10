@@ -40,33 +40,10 @@ function getFormattedScores() {
   });
 }
 
-// function getAverageAnswerTimeForPlayer(player) {
-//   const totalTime = player.answerTimes.reduce((prev, curr) => prev + curr);
-//   return (totalTime/player.answerTimes.length).toFixed(2);
-// }
-
-// function getPlayersSortedByScore() {
-//   return _.sortBy(players, 'score').reverse();
-// }
-
 function getFormattedName(name) {
   const letters = name.split('');
   return letters[0] + '-' + letters.splice(1).join('');
 }
-
-// function updatePlayer(players, userName, answerTime) {
-//   var player = players.filter(p => p.userName === userName)[0];
-//   if (!player) {
-//     player = {
-//       userName: userName,
-//       score: 0,
-//       answerTimes: []
-//     };
-//     players.push(player);
-//   }
-//   player.score += 1;
-//   player.answerTimes.push(answerTime);
-// }
 
 module.exports = {
   start
