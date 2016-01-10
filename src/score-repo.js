@@ -3,11 +3,24 @@ const db = new sql.Database('scores.db');
 
 module.exports = {
     init,
-    writeScore
+    writeScore,
+    getScores
 };
 
 function init() {
   return createScoresTableIfNotPresent();
+}
+
+function getScores() {
+  return new Promise((resolve, reject) => {
+      const query = 'select userName, count(1) as score, avg(answerTimeSec) as averageAnswerTimeSec from scores group by username';
+      db.get(query, (err, docs) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(docs);
+      });
+  });
 }
 
 function createScoresTableIfNotPresent() {
