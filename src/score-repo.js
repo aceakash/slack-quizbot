@@ -14,7 +14,7 @@ function init() {
 function getScores() {
   return new Promise((resolve, reject) => {
       const query = 'select userName, count(1) as score, avg(answerTimeSec) as averageAnswerTimeSec from scores group by username order by score desc';
-      db.get(query, (err, docs) => {
+      db.all(query, (err, docs) => {
           if (err) {
             return reject(err);
           }
