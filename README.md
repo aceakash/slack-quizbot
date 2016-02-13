@@ -5,7 +5,6 @@ Connects to Slack, listens for the keyword 'q' in a particular channel, then spi
 
 If no one gives the right answer within 30 seconds, divulges it and waits for the keyword again.
 
-
 ### Run the app
 
 ```
@@ -24,3 +23,11 @@ In your Slack configuration, under "Configure Integrations" > "Bots" > Add Bot I
 #### SLACK_CHANNEL
 
 The quizbot will only listen to the keyword 'q' in the channel specified by this.
+
+### Run the app in Docker
+
+```
+docker build -t slack-quizbot .
+
+docker run -it -e "SLACK_TOKEN=xoxb-your-slack-token" -e "SLACK_CHANNEL=some-slack-channel-name" slack-quizbot
+```
