@@ -7,7 +7,7 @@ const badQuestionReportHandler = require('./bad-question-report-handler');
 
 
 const quizBot = quizBotFactory.makeQuizBot({
-  handlers: [questionHandler, scoreHandler, badQuestionReportHandler]
+  handlers: [questionHandler, scoreHandler]
 });
 
 quizBot.start();

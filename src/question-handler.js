@@ -3,7 +3,8 @@
 const util = require('util');
 const EventEmitter = require('events').EventEmitter;
 
-const quizRepo = require('./quiz-repo');
+//const quizRepo = require('./quiz-repo');
+const quizRepo = require('./quizballs-repo');
 const config = require('./config');
 
 const questionTimeoutSec = config.get('questionTimeoutSec');
@@ -35,17 +36,17 @@ function start(slackChannel) {
       }
       current.state = states.waitingForAnswer;
       quizRepo.getRandomQuestion()
-        .then(doc => {
-          current.quizItem = doc;
-          console.log(doc);
-          current.timeQuestionAsked = new Date();
-          current.questionTimeOutId = setTimeout(function () {
-            current.state = states.idle;
-            slackChannel.send('Time up! The answer was: ' + current.quizItem.a);
-          }, questionTimeoutSec * 1000);
-          slackChannel.send(util.format('[%s] %s ( %s )',
-            doc.id, doc.q, formatAsBlanks(doc.a)));
-        });
+      .then(doc => {
+        current.quizItem = doc;
+        console.log(doc);
+        current.timeQuestionAsked = new Date();
+        current.questionTimeOutId = setTimeout(function () {
+          current.state = states.idle;
+          slackChannel.send('Time up! The answer was: ' + current.quizItem.a);
+        }, questionTimeoutSec * 1000);
+        slackChannel.send(util.format('[%s] %s ( %s )',
+          doc.id, doc.q, formatAsBlanks(doc.a)));
+      });
     }
     else if (current.state === states.waitingForAnswer) {
       if (msgDetails.prunedText == prune(current.quizItem.a)) {
@@ -67,7 +68,7 @@ function formatAsBlanks(string) {
   return string.replace(/\w/g, 'x');
 }
 
-function prune (text) {
+function prune(text) {
   return text.toLowerCase().trim();
 }
 
