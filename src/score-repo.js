@@ -1,5 +1,11 @@
 const sql = require('sqlite3').verbose();
-const db = new sql.Database('scores.db');
+const db = new sql.Database('data/scores.db');
+
+db.on('error', error => {
+  console.error('Error opening database: ', error);
+  console.error('Exiting app');
+  process.exit(1);
+});
 
 module.exports = {
     init,
