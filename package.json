@@ -4,7 +4,9 @@
   "description": "A quiz bot for Slack",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "license": "ISC",
   "dependencies": {
@@ -13,6 +15,8 @@
     "lodash": "^3.9.3",
     "lokijs": "^1.3.11",
     "slack-client": "^1.4.1",
-    "sqlite3": "^3.1.1"
-  }
+    "sqlite3": "^4.0.0",
+    "snyk": "^1.83.0"
+  },
+  "snyk": true
 }
