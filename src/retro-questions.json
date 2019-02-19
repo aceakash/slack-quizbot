@@ -1,0 +1,252 @@
+[
+    {
+        "q": "Nicholas Breakspear, born in the 12th Century, was the first English what?",
+        "a": "Pope",
+        "meta": {
+            "revision": 0,
+            "created": 1455376612273,
+            "version": 0
+        },
+        "$loki": 2
+    },
+    {
+        "q": "The construction toy 'Lego' was originally designed in which European country?",
+        "a": "Denmark",
+        "meta": {
+            "revision": 0,
+            "created": 1455379482162,
+            "version": 0
+        },
+        "$loki": 2553
+    },
+    {
+        "q": "In French cookery, what is the main ingredient of an 'Amandine' sauce?",
+        "a": "Almonds",
+        "meta": {
+            "revision": 0,
+            "created": 1455379482163,
+            "version": 0
+        },
+        "$loki": 2748
+    },
+    {
+        "q": "What is the capital of Indonesia?",
+        "a": "Jakarta",
+        "meta": {
+            "revision": 0,
+            "created": 1455376675673,
+            "version": 0
+        },
+        "$loki": 19
+    },
+    {
+        "q": "Where on a horse's body is the frog?",
+        "a": "Hoof",
+        "meta": {
+            "revision": 0,
+            "created": 1455376675673,
+            "version": 0
+        },
+        "$loki": 25
+    },
+    {
+        "q": "What is the collective name for a group of toads?",
+        "a": "Knot",
+        "meta": {
+            "revision": 0,
+            "created": 1455376675673,
+            "version": 0
+        },
+        "$loki": 55
+    },
+    {
+        "q": "What is the only English word, and its derivatives, to end in 'mt'?",
+        "a": "Dreamt",
+        "meta": {
+            "revision": 0,
+            "created": 1455376675673,
+            "version": 0
+        },
+        "$loki": 56
+    },
+    {
+        "q": "How many goals did footballer Gary Lineker score for England?",
+        "a": "48",
+        "meta": {
+            "revision": 0,
+            "created": 1455376675673,
+            "version": 0
+        },
+        "$loki": 60
+    },
+    {
+        "q": "Shakespeare was said to have coined the phrase 'One fell swoop' in which of his plays?",
+        "a": "Macbeth",
+        "meta": {
+            "revision": 0,
+            "created": 1455376675674,
+            "version": 0
+        },
+        "$loki": 76
+    },
+    {
+        "q": "In UK currency, how many sides does a twenty pence piece have?",
+        "a": "Seven",
+        "meta": {
+            "revision": 0,
+            "created": 1455376675674,
+            "version": 0
+        },
+        "$loki": 90
+    },
+    {
+        "q": "When a young squire was knighted for his deeds of valour in battle, he was said to have won his what?",
+        "a": "Spurs",
+        "meta": {
+            "revision": 0,
+            "created": 1455376675674,
+            "version": 0
+        },
+        "$loki": 91
+    },
+    {
+        "q": "In Southern Australia, a strong, hot, dry dusty wind is known by what name?",
+        "a": "Brickfielder",
+        "meta": {
+            "revision": 0,
+            "created": 1455376675674,
+            "version": 0
+        },
+        "$loki": 101
+    },
+    {
+        "q": "Ophidiophobia is the fear of what type of creature?",
+        "a": "Snake",
+        "meta": {
+            "revision": 0,
+            "created": 1455377061429,
+            "version": 0
+        },
+        "$loki": 133
+    },
+    {
+        "q": "What type of cat was the official mascot for the 2010 FIFA World Cup?",
+        "a": "Leopard",
+        "meta": {
+            "revision": 0,
+            "created": 1455377061429,
+            "version": 0
+        },
+        "$loki": 137
+    },
+    {
+        "q": "What is the zodiac sign of someone born on the 15th May?",
+        "a": "Taurus",
+        "meta": {
+            "revision": 0,
+            "created": 1455377061429,
+            "version": 0
+        },
+        "$loki": 144
+    },
+    {
+        "q": "Which word can be used for a birthmark, a piece of drilling machinery and a secret agent?",
+        "a": "Mole",
+        "meta": {
+            "revision": 0,
+            "created": 1455377061429,
+            "version": 0
+        },
+        "$loki": 145
+    },
+    {
+        "q": "The coastal resorts of Sopot and Leba are in which European country?",
+        "a": "Poland",
+        "meta": {
+            "revision": 0,
+            "created": 1455377061430,
+            "version": 0
+        },
+        "$loki": 151
+    },
+    {
+        "q": "At which London landmark does the 'Ceremony of the Keys' take place?",
+        "a": "Tower of London",
+        "meta": {
+            "revision": 0,
+            "created": 1455377061430,
+            "version": 0
+        },
+        "$loki": 159
+    },
+    {
+        "q": "If it's 4pm in London England in May, what time is it in New York USA?",
+        "a": "11am",
+        "meta": {
+            "revision": 0,
+            "created": 1455377061430,
+            "version": 0
+        },
+        "$loki": 173
+    },
+    {
+        "q": "Which word represents the letter 'K' in the NATO Phonetic Alphabet?",
+        "a": "Kilo",
+        "meta": {
+            "revision": 0,
+            "created": 1455377061431,
+            "version": 0
+        },
+        "$loki": 183
+    },
+    {
+        "q": "What is the name of the dragon which guards the treasure in the novel 'The Hobbit'?",
+        "a": "Smaug",
+        "meta": {
+            "revision": 0,
+            "created": 1455379482153,
+            "version": 0
+        },
+        "$loki": 1568
+    },
+    {
+        "q": "Which country has the internet domain .cn?",
+        "a": "China",
+        "meta": {
+            "revision": 0,
+            "created": 1455379482155,
+            "version": 0
+        },
+        "$loki": 1768
+    },
+    {
+        "q": "Who plays Zorro's wife Elena in the 2005 film 'The Legend of Zorro'?",
+        "a": "Catherine Zeta Jones",
+        "meta": {
+            "revision": 0,
+            "created": 1455379482157,
+            "version": 0
+        },
+        "$loki": 1954
+    },
+    {
+        "q": "Which popular board game was originally called 'Criss Cross Words'?",
+        "a": "Scrabble",
+        "meta": {
+            "revision": 0,
+            "created": 1455379482159,
+            "version": 0
+        },
+        "$loki": 2223
+    },
+    {
+        "q": "On a mobile phone keypad, the letters 'MNO' are on which number button?",
+        "a": "6",
+        "meta": {
+            "revision": 0,
+            "created": 1455379482161,
+            "version": 0
+        },
+        "$loki": 2474
+    }
+]
